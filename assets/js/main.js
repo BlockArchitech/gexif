@@ -4,7 +4,13 @@
 //
 // The output will be in the div with id 'output'
 //
-var TIFF_FILES_ALLOWED = false;
+var FILE_EXTS =
+  {
+    "TIFF": {
+      "ext": ".tiff",
+      "allowed": false
+    }
+  }
 // Function to throw away the image after we're done with it. We don't want to store other's images.
 function throwAway() {
   //============================================================
@@ -28,7 +34,7 @@ function getExif() {
       EXIF.getData(img, function () {
         console.log(img)
         var output = document.getElementById("output");
-        if(TIFF_FILES_ALLOWED === false && document.querySelector("#file").files[0].name.toString().endsWith(".tiff")) { // deny tiff files if variable says so
+        if(FILE_EXTS['TIFF']['allowed'] === false && document.querySelector("#file").files[0].name.toString().endsWith(FILE_EXTS['TIFF']['ext'])) { // deny tiff files if variable says so
           output.innerHTML = `<h3>TIFF files are disabled for now.</h3><h6><i><a href="https://github.com/blockarchitech/gexif" target="_blank">Check for updates</a></i></h6>`
           return
         }
